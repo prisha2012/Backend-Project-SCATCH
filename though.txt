@@ -1,0 +1,20 @@
+1. usermodel
+full name-String
+email-String
+password-String
+cart-array
+isadmin-boolean
+orders-array
+contact- number
+picture- db
+
+2. product
+image
+name
+price
+discount
+bgcolor
+textcolor
+
+
+
