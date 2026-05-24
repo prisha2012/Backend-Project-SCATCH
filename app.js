@@ -8,7 +8,7 @@ const userModel = require("./models/user-model");
 
 // const ownersRouter=require('./routes/ownersRouter');
 // const productsRouter=require('./routes/productsRouter');
-// const usersRouter=require('./routes/usersRouter');
+const usersRouter=require('./routes/usersRouter');
 // const db=require("./config/mongoose-connection");
 
 app.use(express.json());
@@ -18,12 +18,12 @@ app.use(express.static(path.join(__dirname,"public")));
 app.set("view engine","ejs");
 
 // app.use("/owners",ownersRouter);
-// app.use("/user",usersRouter);
+app.use("/",usersRouter);
 // app.use("/products",productsRouter);
 
-app.get("/",(req,res)=>{
-    res.render("index");
-})
+// app.get("/",(req,res)=>{
+//     res.render("index");
+// })
 app.get("/create",async(req,res)=>{
     const createdUser=await userModel.create({
         fullname: "Prisha",
