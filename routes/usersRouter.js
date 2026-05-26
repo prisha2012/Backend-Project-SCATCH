@@ -20,5 +20,5 @@ router.post("/register",async(req,res)=>{
             res.send(createdUser)
         });
     });
-});
+});2
 module.exports=router

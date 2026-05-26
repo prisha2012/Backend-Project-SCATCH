@@ -3,7 +3,8 @@ require("./config/mongoose-connection");
 const express=require('express');
 const app=express();
 const userModel = require("./models/user-model");
-// const cookieParser=require('cookie-parser');
+const cookieParser=require('cookie-parser');
+const session=require("express-session");
  const path=require("path");
 
 // const ownersRouter=require('./routes/ownersRouter');
