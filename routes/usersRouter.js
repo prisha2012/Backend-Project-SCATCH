@@ -20,5 +20,25 @@ router.post("/register",async(req,res)=>{
             res.send(createdUser)
         });
     });
-});2
+});
+router.post("/login", async(req,res)=>{
+    const{email,password}=req.body;
+    const user=await userModel.findOne({email});
+    if(!user) {return res.send("User not found");}
+    bcrypt.compare(password,user.password,function(err,result){
+        if(result) {
+            req.session.user=user._id;
+            res.send("Login Succesful");
+        }
+        else {res.send("Incorect Password");}
+    });
+
+});
+router.get("/profile",(req,res)=>{
+    if(!req.session.user){
+        return res.send("You must login");
+    }
+    res.send("Welcome to profile");
+});
+
 module.exports=router

@@ -5,7 +5,7 @@ const app=express();
 const userModel = require("./models/user-model");
 const cookieParser=require('cookie-parser');
 const session=require("express-session");
- const path=require("path");
+const path=require("path");
 
 // const ownersRouter=require('./routes/ownersRouter');
 // const productsRouter=require('./routes/productsRouter');
@@ -14,7 +14,14 @@ const usersRouter=require('./routes/usersRouter');
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-// app.use(cookieParser());
+app.use(cookieParser());
+app.use(
+    session({
+        secret: "mysupersecretkey",
+        resave: false,
+        saveUninitialized: false
+    })
+);
 app.use(express.static(path.join(__dirname,"public")));
 app.set("view engine","ejs");
 
