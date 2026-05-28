@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router();
 const userModel=require("../models/user-model");
 const bcrypt=require("bcrypt");
+const isLoggedIn=require("../middlewares/isLoggedIn");
 
 router.get("/",(req,res)=>{
     res.render("index");
@@ -17,7 +18,7 @@ router.post("/register",async(req,res)=>{
             email,
             password: hash
         });
-            res.send(createdUser)
+            res.redirect("/");
         });
     });
 });
@@ -28,17 +29,20 @@ router.post("/login", async(req,res)=>{
     bcrypt.compare(password,user.password,function(err,result){
         if(result) {
             req.session.user=user._id;
-            res.send("Login Succesful");
+            res.redirect("/profile");
         }
         else {res.send("Incorect Password");}
     });
 
 });
-router.get("/profile",(req,res)=>{
-    if(!req.session.user){
-        return res.send("You must login");
-    }
-    res.send("Welcome to profile");
+router.get("/profile",isLoggedIn,(req,res)=>{
+    res.send("Welcome to Profile");
 });
+router.get("/logout",(req,res)=>{
+    req.session.destroy(function(err){
+        res.redirect("/");
+    });
+});
+
 
 module.exports=router
