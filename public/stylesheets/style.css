@@ -25,3 +25,16 @@ button{
     border: none;
     cursor: pointer;
 }
+.card{
+    width:250px;
+    padding:20px;
+    border-radius:10px;
+    background:white;
+    color:black;
+    margin:20px;
+}
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    gap:20px;
+}

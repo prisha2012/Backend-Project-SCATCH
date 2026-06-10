@@ -8,8 +8,11 @@ const productModel=require("../models/product-model")
 // })
 router.get("/create",(req,res)=>{
     res.render("createproducts");
+});
+router.get("/",async(req,res)=>{
+    const products=await productModel.find();
+    res.render("shop",{products});
 })
-
 router.post("/create",async(req,res)=>{
     const{name,price,image,bgcolor,panelcolor,textcolor}=req.body;
     const product=await productModel.create({

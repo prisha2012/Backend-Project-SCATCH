@@ -1,0 +1,11 @@
+<h1> Shop Page</h1>
+<div class="products">
+<% products.forEach(product=>{%>
+    <div class="card" style="background:<%=product.bgcolor%>;  color:<%= product.textcolor %>;">
+    <h2><%=product.name%></h2>
+      <p><%=product.price%></p>
+      <img src="<%= product.image %>" width="150">
+</div>
+<%})%>
+</div>
+
