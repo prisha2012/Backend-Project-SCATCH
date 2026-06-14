@@ -3,6 +3,7 @@ const express=require('express');
 const router=express.Router();
 const productModel=require("../models/product-model")
 const userModel = require("../models/user-model");
+const upload=require("../config/multer-config");
 
 // router.get("/",(req,res)=>{
 //     res.send("hey");
@@ -52,12 +53,12 @@ router.get("/remove/:productid",async(req,res)=>{
     await user.save();
     res.redirect("/products/cart");
 })
-router.post("/create",async(req,res)=>{
-    const{name,price,image,bgcolor,panelcolor,textcolor}=req.body;
+router.post("/create", upload.single("image"),async(req,res)=>{
+    const{name,price,bgcolor,panelcolor,textcolor}=req.body;
     const product=await productModel.create({
         name,
         price,
-        image,
+        image:req.file.filename,
         bgcolor,
         panelcolor,
         textcolor
