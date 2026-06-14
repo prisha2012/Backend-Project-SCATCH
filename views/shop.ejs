@@ -1,11 +1,31 @@
-<h1> Shop Page</h1>
-<div class="products">
-<% products.forEach(product=>{%>
-    <div class="card" style="background:<%=product.bgcolor%>;  color:<%= product.textcolor %>;">
-    <h2><%=product.name%></h2>
-      <p><%=product.price%></p>
-      <img src="<%= product.image %>" width="150">
 </div>
-<%})%>
-</div>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title> Create Product</title>
+</head>
+
+<body>
+    <h1> Shop Page</h1>
+    <div class="products">
+      <% products.forEach(product=>{%>
+        <div class="card" style="background:<%=product.bgcolor%>;  color:<%= product.textcolor %>;">
+          <h2>
+            <%=product.name%>
+          </h2>
+          <p>
+            <%=product.price%>
+          </p>
+          <img src="<%= product.image %>" width="150">
+          <a href="/products/addtocart/<%= product._id%>" class="add-cart-btn">
+            Add To Cart
+          </a>
+        </div>
+        <%})%>
+</body>
+
+</html>
