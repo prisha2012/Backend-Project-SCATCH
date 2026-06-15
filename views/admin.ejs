@@ -7,16 +7,27 @@
         <title>Admin DashBoard</title>
     </head>
     <body>
+        
+    <%- include("partials/navbar") %>
         <h1>Admin Dashboard</h1>
         <% products.forEach(product=>{%>
         <div class="admin-card">
-            <h2><%=product.name%></h2>
-            <p><%= product.price%></p>
-            <img src="/images/<%=product.image%>">
-            <a href="/products/delete/<%=product._id%>">
-                Delete
-            </a>
-        </div>
+
+    <img
+     src="/images/<%= product.image %>"
+    >
+
+    <h2><%= product.name %></h2>
+
+    <p>₹<%= product.price %></p>
+
+    <a
+     href="/products/delete/<%= product._id %>"
+    >
+        Delete
+    </a>
+
+</div>
         <%})%>
     </body>
 </html>
