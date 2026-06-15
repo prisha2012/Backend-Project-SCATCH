@@ -53,6 +53,14 @@ router.get("/remove/:productid",async(req,res)=>{
     await user.save();
     res.redirect("/products/cart");
 })
+router.get("/admin",async(req,res)=>{
+    const products=await productModel.find();
+    res.render("admin",{products});
+})
+router.get("/delete/:id",async(req,res)=>{
+    await productModel.findByIdAndDelete(req.params.id);
+    res.redirect("/products/admin");
+})
 router.post("/create", upload.single("image"),async(req,res)=>{
     const{name,price,bgcolor,panelcolor,textcolor}=req.body;
     const product=await productModel.create({

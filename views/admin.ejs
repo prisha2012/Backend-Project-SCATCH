@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <title>Admin DashBoard</title>
+    </head>
+    <body>
+        <h1>Admin Dashboard</h1>
+        <% products.forEach(product=>{%>
+        <div class="admin-card">
+            <h2><%=product.name%></h2>
+            <p><%= product.price%></p>
+            <img src="/images/<%=product.image%>">
+            <a href="/products/delete/<%=product._id%>">
+                Delete
+            </a>
+        </div>
+        <%})%>
+    </body>
+</html>
