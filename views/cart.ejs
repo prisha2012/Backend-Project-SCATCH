@@ -1,37 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
 
-        <!DOCTYPE html>
-        <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title> Create Product</title>
+</head>
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="/stylesheets/style.css">
-            <title> Create Product</title>
-        </head>
+<body>
 
-        <body>
-            
     <%- include("partials/navbar") %>
-                <h1>Your Cart</h1>
-                <% user.cart.forEach(product=>{%>
-                    <div class="cart-card">
-                        <h2>
-                            <%=product.name%>
-                        </h2>
-                        <p>
-                            ₹<%=product.price%>
-                        </p>
-                        <a href="/products/remove/<%= product._id %>">
-                            Remove
-                        </a>
-                    </div>
-                    <%})%>
-                    <div class="cart-summary">
-                        <h2>Total
-                        </h2>
-                        <p> ₹<%= total %></p>
-                        </div>
-         
-        </body>
+        <h1>Your Cart</h1>
+        <% user.cart.forEach(product=>{%>
+            <div class="cart-card">
+                <h2>
+                    <%=product.name%>
+                </h2>
+                <p>
+                    ₹<%=product.price%>
+                </p>
+                <a href="/products/remove/<%= product._id %>">
+                    Remove
+                </a>
+            </div>
+            <%})%>
+                <div class="cart-summary">
+                    <h2>Total
+                    </h2>
+                    <p> ₹<%= total %>
+                    </p>
+                </div>
+                <a href="/products/checkout" class="checkout-btn">
+                    Place Order
+                </a>
+</body>
 
-        </html>
+</html>

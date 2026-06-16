@@ -4,6 +4,8 @@ const router=express.Router();
 const productModel=require("../models/product-model")
 const userModel = require("../models/user-model");
 const upload=require("../config/multer-config");
+const orderModel=require("../models/order-model");
+const { populate } = require('dotenv');
 
 // router.get("/",(req,res)=>{
 //     res.send("hey");
@@ -64,6 +66,26 @@ router.get("/delete/:id",async(req,res)=>{
 router.get("/edit/:id",async (req,res)=>{
     const product=await productModel.findById(req.params.id);
     res.render("editproduct",{product});
+})
+router.get("/checkout",async(req,res)=>{
+    const user=await userModel.findById(req.session.user).populate("cart");
+    let total=0;
+    user.cart.forEach(product=>{
+        total+=product.price;
+    })
+    const order=await orderModel.create({
+        user:user._id,
+        products:user.cart.map(product=>product._id),
+        total
+    })
+user.orders.push(order._id);
+user.cart=[];
+await user.save();
+res.send("Order Placed Succesfully");
+});
+router.get("/orders",async(req,res)=>{
+    const user=await userModel.findById(req.session.user).populate({path:"orders",populate:{path:"products"}});
+    res.render("orders",{user});
 })
 router.post("/create", upload.single("image"),async(req,res)=>{
     const{name,price,bgcolor,panelcolor,textcolor}=req.body;

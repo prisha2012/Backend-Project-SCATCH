@@ -164,3 +164,12 @@ button{
     border-radius:8px;
     text-decoration:none;
 }
+.checkout-btn{
+    display: inline-block;
+    margin-top:20px;
+    padding: 12px 25px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+}

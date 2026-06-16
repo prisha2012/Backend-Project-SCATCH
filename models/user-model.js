@@ -11,10 +11,10 @@ const userSchema=mongoose.Schema({
        ref: "product"
  }],
     // isadmin: Boolean,
-    // orders: {
-    //     type: Array,
-    //     default: []
-    // },
+     orders:[{
+     type: mongoose.Schema.Types.ObjectId,
+    ref: "order"
+     }],
     // contact: Number,
     // picture: String
 });
