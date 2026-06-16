@@ -12,7 +12,11 @@
 <body>
   
     <%- include("partials/navbar") %>
-    <h1> Shop Page</h1>
+    <section class="hero">
+      <h1>Premium Bags Collection</h1>
+      <p> Discover mordern bags Crafted for everyday use</p>
+
+    </section>
     <div class="products">
       <% products.forEach(product=>{%>
         <div class="card" style="background:<%=product.bgcolor%>;  color:<%= product.textcolor %>;">

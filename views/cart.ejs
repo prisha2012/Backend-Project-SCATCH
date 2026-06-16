@@ -19,15 +19,18 @@
                             <%=product.name%>
                         </h2>
                         <p>
-                            <%=product.price%>
+                            ₹<%=product.price%>
                         </p>
                         <a href="/products/remove/<%= product._id %>">
                             Remove
                         </a>
                     </div>
                     <%})%>
-                        <h2>Total: ₹<%= total %>
+                    <div class="cart-summary">
+                        <h2>Total
                         </h2>
+                        <p> ₹<%= total %></p>
+                        </div>
          
         </body>
 

@@ -61,6 +61,10 @@ router.get("/delete/:id",async(req,res)=>{
     await productModel.findByIdAndDelete(req.params.id);
     res.redirect("/products/admin");
 })
+router.get("/edit/:id",async (req,res)=>{
+    const product=await productModel.findById(req.params.id);
+    res.render("editproduct",{product});
+})
 router.post("/create", upload.single("image"),async(req,res)=>{
     const{name,price,bgcolor,panelcolor,textcolor}=req.body;
     const product=await productModel.create({
@@ -73,4 +77,15 @@ router.post("/create", upload.single("image"),async(req,res)=>{
     });
     res.send(product);
 });
+router.post("/update/:id",async(req,res)=>{
+    const{name,price,bgcolor,panelcolor,textcolor}=req.body;
+    await productModel.findByIdAndUpdate(req.params.id,{
+        name,
+        price,
+        bgcolor,
+        panelcolor,
+        textcolor
+    });
+    res.redirect("/products/admin");
+})
 module.exports=router;

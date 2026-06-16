@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title> Create Product</title>
+</head>
+
+<body>
+<%- include("partials/navbar") %>
+<div class="edit-container">
+<form action="/products/update/<%=product._id%>" method="POST">
+    <input type="text" name="name" value="<%=product.name%>">
+     <input type="number" name="price" value="<%=product.price%>">
+      <input type="text" name="bgcolor" value="<%=product.bgcolor%>">
+       <input type="text" name="panelcolor" value="<%=product.panelcolor%>">
+        <input type="text" name="textcolor" value="<%=product.textcolor%>">
+        <button>Update Product</button>
+
+</form>
+</div>
+</body>
+
+</html>
