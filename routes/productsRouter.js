@@ -6,11 +6,12 @@ const userModel = require("../models/user-model");
 const upload=require("../config/multer-config");
 const orderModel=require("../models/order-model");
 const { populate } = require('dotenv');
+const isAdmin=require("../middlewares/isAdmin");
 
 // router.get("/",(req,res)=>{
 //     res.send("hey");
 // })
-router.get("/create",(req,res)=>{
+router.get("/create",isAdmin,(req,res)=>{
     res.render("createproducts");
 });
 router.get("/",async(req,res)=>{
@@ -55,15 +56,15 @@ router.get("/remove/:productid",async(req,res)=>{
     await user.save();
     res.redirect("/products/cart");
 })
-router.get("/admin",async(req,res)=>{
+router.get("/admin",isAdmin,async(req,res)=>{
     const products=await productModel.find();
     res.render("admin",{products});
 })
-router.get("/delete/:id",async(req,res)=>{
+router.get("/delete/:id",isAdmin,async(req,res)=>{
     await productModel.findByIdAndDelete(req.params.id);
     res.redirect("/products/admin");
 })
-router.get("/edit/:id",async (req,res)=>{
+router.get("/edit/:id",isAdmin,async (req,res)=>{
     const product=await productModel.findById(req.params.id);
     res.render("editproduct",{product});
 })
@@ -87,7 +88,7 @@ router.get("/orders",async(req,res)=>{
     const user=await userModel.findById(req.session.user).populate({path:"orders",populate:{path:"products"}});
     res.render("orders",{user});
 })
-router.post("/create", upload.single("image"),async(req,res)=>{
+router.post("/create",isAdmin, upload.single("image"),async(req,res)=>{
     const{name,price,bgcolor,panelcolor,textcolor}=req.body;
     const product=await productModel.create({
         name,

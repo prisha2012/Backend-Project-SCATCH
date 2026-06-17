@@ -6,6 +6,10 @@ const userSchema=mongoose.Schema({
     fullname: String,
     email: String,
     password: String,
+    role:{
+       type:String,
+       default:"user"
+    },
     cart:[{
        type: mongoose.Schema.Types.ObjectId,
        ref: "product"
@@ -14,7 +18,7 @@ const userSchema=mongoose.Schema({
      orders:[{
      type: mongoose.Schema.Types.ObjectId,
     ref: "order"
-     }],
+     }]
     // contact: Number,
     // picture: String
 });
