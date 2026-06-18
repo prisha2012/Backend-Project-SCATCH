@@ -5,18 +5,41 @@
     <div class="nav-links">
         <a href="/products">
             Shop
-        </a>
+       <% if(role === "user"){ %>
+
         <a href="/products/cart">
             Cart
         </a>
-        <a href="/products/admin">
-            Admin
-        </a>
+
         <a href="/products/orders">
             Orders
         </a>
-        <a href="/logout">
-            Logout
+
+        <a href="/profile">
+            Profile
         </a>
+
+    <% } %>
+
+    <% if(role === "admin"){ %>
+
+        <a href="/products/admin">
+            Admin
+        </a>
+
+        <a href="/products/create">
+            Create Product
+        </a>
+
+        <a href="/products/orders">
+            Orders
+        </a>
+
+    <% } %>
+
+    <a href="/logout">
+        Logout
+    </a>
+
     </div>
 </nav>

@@ -6,6 +6,7 @@ const userModel = require("./models/user-model");
 const cookieParser=require('cookie-parser');
 const session=require("express-session");
 const path=require("path");
+const glovalData=require("./middlewares/globalData")
 
 // const ownersRouter=require('./routes/ownersRouter');
  const productsRouter=require('./routes/productsRouter');
@@ -22,6 +23,7 @@ app.use(
         saveUninitialized: false
     })
 );
+app.use(glovalData);
 app.use(express.static(path.join(__dirname,"public")));
 app.set("view engine","ejs");
 

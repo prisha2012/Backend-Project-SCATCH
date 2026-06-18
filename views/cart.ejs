@@ -12,28 +12,60 @@
 
     <%- include("partials/navbar") %>
         <h1>Your Cart</h1>
-        <% user.cart.forEach(product=>{%>
-            <div class="cart-card">
-                <h2>
-                    <%=product.name%>
-                </h2>
-                <p>
-                    ₹<%=product.price%>
-                </p>
-                <a href="/products/remove/<%= product._id %>">
-                    Remove
-                </a>
-            </div>
-            <%})%>
-                <div class="cart-summary">
-                    <h2>Total
-                    </h2>
-                    <p> ₹<%= total %>
-                    </p>
-                </div>
-                <a href="/products/checkout" class="checkout-btn">
-                    Place Order
-                </a>
+   <% user.cart.forEach(item=>{ %>
+
+<div class="cart-card">
+
+    <img
+        src="/images/<%= item.product.image %>"
+        alt=""
+    >
+
+    <h2>
+        <%= item.product.name %>
+    </h2>
+
+    <p>
+        ₹<%= item.product.price %>
+    </p>
+
+    <div class="quantity-box">
+
+        <a href="/products/decrease/<%= item.product._id %>">
+            -
+        </a>
+
+        <span>
+            <%= item.quantity %>
+        </span>
+
+        <a href="/products/increase/<%= item.product._id %>">
+            +
+        </a>
+
+    </div>
+
+    <h3>
+        ₹<%= item.product.price * item.quantity %>
+    </h3>
+
+</div>
+
+<% }) %>
+            <div class="cart-summary">
+
+    <h2>
+        Total ₹<%= total %>
+    </h2>
+
+    <a
+        class="checkout-btn"
+        href="/products/checkout"
+    >
+        Checkout
+    </a>
+
+</div>
 </body>
 
 </html>

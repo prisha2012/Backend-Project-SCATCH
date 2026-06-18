@@ -10,6 +10,9 @@
         
     <%- include("partials/navbar") %>
         <h1>Admin Dashboard</h1>
+       
+        <div class="admin-grid">
+
         <% products.forEach(product=>{%>
         <div class="admin-card">
 
@@ -40,5 +43,6 @@
 
 </div>
         <%})%>
+        </div>
     </body>
 </html>

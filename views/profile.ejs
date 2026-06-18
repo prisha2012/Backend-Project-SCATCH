@@ -1,17 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <title>Admin DashBoard</title>
+    </head>
+    <body>
+        
 <%- include("partials/navbar") %>
 
-<div class="profile-container">
+<div class="profile-page">
 
-    <h1>
-        Welcome <%= user.fullname %>
-    </h1>
+    <div class="profile-card">
 
-    <p>
-        <%= user.email %>
-    </p>
+        <h1>
+            <%= user.fullname %>
+        </h1>
 
-    <p>
-        Role: <%= user.role %>
-    </p>
+        <p>
+            <%= user.email %>
+        </p>
+
+        <div class="profile-info">
+
+            <div>
+                <h3>Role</h3>
+                <p><%= user.role %></p>
+            </div>
+
+            <div>
+                <h3>Orders</h3>
+                <p><%= user.orders.length %></p>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
+    </body>
+</html>

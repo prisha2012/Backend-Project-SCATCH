@@ -1,7 +1,4 @@
 const mongoose=require('mongoose');
-
-
-
 const userSchema=mongoose.Schema({
     fullname: String,
     email: String,
@@ -11,16 +8,19 @@ const userSchema=mongoose.Schema({
        default:"user"
     },
     cart:[{
-       type: mongoose.Schema.Types.ObjectId,
-       ref: "product"
+      product:{   
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "product"
+      },
+      quantity:{
+        type:Number,
+        default:1
+      }
  }],
-    // isadmin: Boolean,
      orders:[{
      type: mongoose.Schema.Types.ObjectId,
-    ref: "order"
+     ref: "order"
      }]
-    // contact: Number,
-    // picture: String
 });
 
 const userModel=mongoose.model("user",userSchema);

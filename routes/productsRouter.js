@@ -20,15 +20,27 @@ router.get("/",async(req,res)=>{
 })
 router.get("/addtocart/:productid",async(req,res)=>{
 
-    console.log("Current Session:", req.session.user);
-
     const user = await userModel.findById(req.session.user);
 
     if(!user){
         return res.send("User not found. Login again.");
     }
 
-    user.cart.push(req.params.productid);
+  const existingItem = user.cart.find(
+    item =>
+        item.product &&
+        item.product.toString() === req.params.productid
+);
+    if(existingItem){
+        existingItem.quantity+=1;
+    }
+    else{
+        user.cart.push({
+                product: req.params.productid,
+                quantity:1
+            })
+        }
+    
 
     await user.save();
 
@@ -37,21 +49,38 @@ router.get("/addtocart/:productid",async(req,res)=>{
 router.get("/cart",async(req,res)=>{
    const user = await userModel
     .findById(req.session.user)
-    .populate("cart");
+    .populate("cart.product");
 
 if(!user){
     return res.send("Please login first");
 }
     let total=0;
-    user.cart.forEach(product=>{
-        total+=product.price;
+    user.cart.forEach(item=>{
+        total+=item.product.price*item.quantity;
     })
     res.render("cart",{user,total});
+})
+router.get("/increase/:id",async(req,res)=>{
+    const user=await userModel.findById(req.session.user);
+    const item=user.cart.find(item=>item.product.toString()===req.params.id);
+    item.quantity++;
+    await user.save();
+    res.redirect("/products/cart");
+});
+router.get("/decrease/:id",async(req,res)=>{
+    const user=await userModel.findById(req.session.user);
+    const item=user.cart.find(item=>item.product.toString()===req.params.id);
+    item.quantity--;
+    if(item.quantity<=0){
+        user.cart=user.cart.filter(item=>item.product.toString()!==req.params.id);
+    }
+    await user.save();
+    res.redirect("/products/cart");
 })
 router.get("/remove/:productid",async(req,res)=>{
     const user=await userModel.findById(req.session.user);
     user.cart=user.cart.filter(item=>{
-        return item.toString()!==req.params.productid;
+      return item.product.toString() !== req.params.productid;
     })
     await user.save();
     res.redirect("/products/cart");
@@ -69,14 +98,18 @@ router.get("/edit/:id",isAdmin,async (req,res)=>{
     res.render("editproduct",{product});
 })
 router.get("/checkout",async(req,res)=>{
-    const user=await userModel.findById(req.session.user).populate("cart");
+   const user = await userModel
+    .findById(req.session.user)
+    .populate("cart.product");
     let total=0;
-    user.cart.forEach(product=>{
-        total+=product.price;
-    })
+   user.cart.forEach(item=>{
+    total += item.product.price * item.quantity;
+});
     const order=await orderModel.create({
         user:user._id,
-        products:user.cart.map(product=>product._id),
+       products:user.cart.map(
+    item => item.product._id
+), 
         total
     })
 user.orders.push(order._id);
